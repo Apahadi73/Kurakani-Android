@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.logged_in.home.HomeFragment">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/home_search_bar"
+            android:layout_width="match_parent"
+            android:padding="16sp"
+            android:layout_margin="8sp"
+            android:inputType="textAutoCorrect"
+            android:imeOptions="actionDone"
+            android:hint="Search / Browse Friends"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:padding="4sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/home_search_bar"
+            tools:listitem="@layout/user_item_card"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </RelativeLayout>
+</layout>

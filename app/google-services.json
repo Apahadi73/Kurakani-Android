@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "504999142902",
+    "firebase_url": "https://kurakani-89655.firebaseio.com",
+    "project_id": "kurakani-89655",
+    "storage_bucket": "kurakani-89655.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504999142902:android:a74e561a2b7c77818293d7",
+        "android_client_info": {
+          "package_name": "com.example.kurakani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504999142902-sreetqt3gnla263m645o7og2evpgqphq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEw94nkyVHqr4SQXr_rvDR5b742hGtKqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504999142902-sreetqt3gnla263m645o7og2evpgqphq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "504999142902-2e0jjbtuufojv8lf40o67akh7f0htgb3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AmirPahadi.Kurakani"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

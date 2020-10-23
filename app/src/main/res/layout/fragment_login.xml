@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/loginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ui.authorization.LoginFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:context="">
+
+
+            <EditText
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginVertical="4sp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:drawableStart="@drawable/ic_email"
+                android:background="@drawable/edit_textfield_custom"
+                />
+            <EditText
+                android:id="@+id/userPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginVertical="4sp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="@string/password"
+                android:drawableStart="@drawable/ic_password"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:background="@drawable/edit_textfield_custom"
+                />
+
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/loginButtonText"
+                android:background="@drawable/btn_custom"
+                android:textColor="@android:color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/newAccount"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signup_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signUpButtonText"
+                android:background="@drawable/btn_custom"
+                android:textColor="@android:color/white"
+                />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
