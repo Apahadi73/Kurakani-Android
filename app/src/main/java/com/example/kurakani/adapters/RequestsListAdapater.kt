@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kurakani.R
 import com.example.kurakani.model.Request
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.user_item_card.view.*
+import kotlinx.android.synthetic.main.request_item_card.view.*
+import kotlinx.android.synthetic.main.user_item_card.view.user_card_image
+import kotlinx.android.synthetic.main.user_item_card.view.username
 
 
-class FriendsListAdapter(private val RequestList: MutableLiveData<List<Request>>) : RecyclerView.Adapter<FriendsListAdapter.RequestViewHolder>() {
+class RequestListListAdapter(private val RequestList: MutableLiveData<List<Request>>) : RecyclerView.Adapter<RequestListListAdapter.RequestViewHolder>() {
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
      * an item.
@@ -46,8 +49,21 @@ class FriendsListAdapter(private val RequestList: MutableLiveData<List<Request>>
 
     override fun getItemCount(): Int = RequestList.value?.size ?:0
 
-    class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener  {
         val imageView: ImageView = itemView.user_card_image
         val userName: AppCompatTextView? = itemView.username
+        val acceptBtn:AppCompatButton? = itemView.request_accept_btn
+
+        init{
+            itemView.setOnClickListener(this)
+        }
+        override fun onClick(v: View?) {
+
+        }
+
+    }
+
+    interface onItemClickListner{
+
     }
 }

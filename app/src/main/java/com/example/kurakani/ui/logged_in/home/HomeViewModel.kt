@@ -19,7 +19,7 @@ class HomeViewModel : ViewModel() {
 
     private val _messageList = MutableLiveData<List<UserMessage>>().apply {
         Log.d("response", "reached")
-        value = generateDummyList(20)
+        value = generateDummyList(5)
     }
     val messageList = _messageList
 
@@ -56,7 +56,7 @@ class HomeViewModel : ViewModel() {
 //                todo: make this dynamic
                 message = "Hi there"
                 isDataLoaded = true
-                _messageList.value = generateDummyList(20)
+                _messageList.value = generateDummyList(5)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kurakani.R
-import com.example.kurakani.adapters.FriendsListAdapter
+import com.example.kurakani.adapters.RequestListListAdapter
 import com.example.kurakani.databinding.FragmentRequestsBinding
 
 class RequestsFragment : Fragment() {
@@ -29,7 +29,7 @@ class RequestsFragment : Fragment() {
         if (requestsViewModel.requestList.value != null) {
             requestsViewModel.requestList.observe(viewLifecycleOwner, Observer {
                 binding.requestRecyclerView.adapter =
-                    FriendsListAdapter(requestsViewModel.requestList)
+                    RequestListListAdapter(requestsViewModel.requestList)
             })
         }
 

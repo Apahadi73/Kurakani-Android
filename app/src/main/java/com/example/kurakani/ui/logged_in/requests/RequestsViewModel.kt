@@ -16,7 +16,7 @@ class RequestsViewModel : ViewModel() {
     private lateinit var userNameList: ArrayList<String>
 
     private var _requestList = MutableLiveData<List<Request>>().apply {
-        value = generateDummyList(20)
+        value = generateDummyList(2)
         Log.d("requestList", value.toString())
 
     }
@@ -24,7 +24,7 @@ class RequestsViewModel : ViewModel() {
 
 //    load this data while data is being fetched
     private fun generateDummyList(size: Int): ArrayList<Request> {
-        val dummyUserNameList = arrayOf("Amir", "Samir", "Sanskar", "Ravi", "Asim", "Aavash")
+        val dummyUserNameList = arrayOf("John", "John", "John", "John", "John", "John")
         Log.d("request_section", "generating request list")
         val requestList = ArrayList<Request>()
         for (i in 0 until size) {
@@ -46,6 +46,7 @@ class RequestsViewModel : ViewModel() {
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val responseData = dataSnapshot.child("users").child(user.uid).child("user_info").child("requests")
+//                map response data into the user list
                 var userList = responseData.value as ArrayList<*>
 //                clears null values from userList
                 userList = userList.filterNotNull() as ArrayList<Any>

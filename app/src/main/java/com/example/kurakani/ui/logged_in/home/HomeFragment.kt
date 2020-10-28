@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kurakani.R
-import com.example.kurakani.adapters.FriendsListAdapter
 import com.example.kurakani.adapters.MessageListAdapter
 import com.example.kurakani.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
