@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kurakani.R
+import com.example.kurakani.adapters.recyclerviewAdapters.AcceptButtonListner
 import com.example.kurakani.adapters.recyclerviewAdapters.RequestListListAdapter
 import com.example.kurakani.databinding.FragmentRequestsBinding
 
@@ -26,7 +29,10 @@ class RequestsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_requests, container, false)
         requestsViewModel = ViewModelProvider(this).get(RequestsViewModel::class.java)
         requestsViewModel.fetchRequestList()
-        val adapter = RequestListListAdapter(requestsViewModel.requestList)
+        val adapter = RequestListListAdapter(AcceptButtonListner { userName ->
+            Log.d("reached ","button clicked")
+            makeText(context, "Friend Request from $userName accepted", Toast.LENGTH_LONG).show()
+        })
         binding.requestRecyclerView.adapter = adapter
         if (requestsViewModel.requestList.value != null) {
             requestsViewModel.requestList.observe(viewLifecycleOwner, Observer {

@@ -2,7 +2,6 @@ package com.example.kurakani.adapters.recyclerviewAdapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,7 @@ import com.example.kurakani.databinding.UserItemCardBinding
 import com.example.kurakani.model.UserMessageInfo
 
 
-class MessageListAdapter(private val clickListener:UserChatClickListner, private val messageInfoList: MutableLiveData<List<UserMessageInfo>>) :
+class MessageListAdapter(private val clickListener: UserChatClickListner) :
     ListAdapter<UserMessageInfo, MessageListAdapter.MessageViewHolder>(MessageListDiffCallback()) {
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
@@ -39,13 +38,14 @@ class MessageListAdapter(private val clickListener:UserChatClickListner, private
 
         fun bind(
             currentItem: UserMessageInfo?,
-            holder: UserChatClickListner
+            clickListener: UserChatClickListner
         ) { //        downloads and populate imageview with user image from firebase image storage
             if (currentItem != null) {
                 Picasso.get().load(currentItem.imageSrc)
                     .into(binding.userCardImage)
                 binding.userInfo = UserMessageInfo(currentItem.imageSrc,currentItem.userName,currentItem.message)
             }
+            binding.userChatListner = clickListener
 
         }
 

@@ -67,7 +67,8 @@
                 android:background="@drawable/btn_custom"
                 android:padding="8sp"
                 android:text="ACCEPT"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:onClick="@{()->acceptBtnListner.onClick(request)}"/>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

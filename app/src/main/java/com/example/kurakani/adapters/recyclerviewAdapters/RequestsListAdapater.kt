@@ -3,7 +3,6 @@ package com.example.kurakani.adapters.recyclerviewAdapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,14 +11,14 @@ import com.example.kurakani.model.Request
 import com.squareup.picasso.Picasso
 
 
-class RequestListListAdapter(val clickListener:AcceptButtonListner,private val RequestList: MutableLiveData<List<Request>>) :
+class RequestListListAdapter(private val clickListener: AcceptButtonListner) :
     ListAdapter<Request, RequestListListAdapter.RequestViewHolder>(RequestListDiffCallback()) {
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
      * an item.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
-        return RequestViewHolder.from(this, parent)
+        return RequestViewHolder.from(parent)
     }
 
     /**
@@ -33,21 +32,20 @@ class RequestListListAdapter(val clickListener:AcceptButtonListner,private val R
 
     class RequestViewHolder private constructor(val binding: RequestItemCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val acceptBtn: AppCompatButton? = binding.requestAcceptBtn
 
         fun bind(
             currentItem: Request?,
-            holder: AcceptButtonListner
+            clickListener: AcceptButtonListner
         ) { //        downloads and populate imageview with user image from firebase image storage
             if (currentItem != null) {
                 Picasso.get().load(currentItem.imageSrc).into(binding.userCardImage)
                 binding.request = Request(currentItem.imageSrc,currentItem.userName,currentItem.userId)
+                binding.acceptBtnListner = clickListener
             }
         }
 
         companion object {
             fun from(
-                requestListListAdapter: RequestListListAdapter,
                 parent: ViewGroup
             ): RequestViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)

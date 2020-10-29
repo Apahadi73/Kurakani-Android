@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kurakani.R
 import com.example.kurakani.adapters.recyclerviewAdapters.MessageListAdapter
+import com.example.kurakani.adapters.recyclerviewAdapters.UserChatClickListner
 import com.example.kurakani.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,7 +39,9 @@ class HomeFragment : Fragment() {
     ): View? {
         auth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val adapter = MessageListAdapter(homeViewModel.messageList)
+        val adapter = MessageListAdapter(UserChatClickListner { userName ->
+            makeText(context, "$userName clicked", Toast.LENGTH_LONG)
+        })
         binding.recyclerView.adapter = adapter
         homeViewModel.messageList.observe(viewLifecycleOwner, Observer {
             it.let {
@@ -59,7 +64,7 @@ class HomeFragment : Fragment() {
         when (item.itemId) {
             R.id.logout -> {
                 auth.signOut()
-                Log.d("reached","reached here")
+                Log.d("reached", "reached here")
                 findNavController().navigate(R.id.action_nav_home_to_loginFragment3)
             }
         }
