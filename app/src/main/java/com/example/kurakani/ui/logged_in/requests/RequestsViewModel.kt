@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+
 
 class RequestsViewModel : ViewModel() {
 
@@ -28,8 +28,8 @@ class RequestsViewModel : ViewModel() {
 //        todo: this uuid has to come from the user that sends the request.
         val chatId = UUID.randomUUID().toString()
         val friend = Friend(request.imageSrc, request.userId, request.userName, chatId)
-        val participants = listOf<String>(friend.uid,user.uid)
-        val chat = Chat("Congratulation. You guys are connected now.",participants)
+        val participants = listOf<String>(friend.uid, user.uid)
+        val chat = Chat("Congratulation. You guys are connected now.", participants)
 
 //        save accepted users in friends hashmap
         database.child("users").child(user.uid).child("friends").child(friend.uid).setValue(friend)
@@ -37,6 +37,25 @@ class RequestsViewModel : ViewModel() {
         database.child("users").child(user.uid).child("requests").child(friend.uid).removeValue()
 //        creates a new chat collection for connected users
         database.child("chats").child(chatId).setValue(chat)
+
+
+//        retrieves user information from database
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userData = dataSnapshot.child("users").child(user.uid)
+                val userName = userData.child("user_info").child("user_name").value as String
+                val userProfilePic = userData.child("profile_pic").value as String
+                val userInfo = Friend(userProfilePic, user.uid, userName, chatId)
+                Log.d("value", userInfo.toString())
+//                save user in the friends section of the friend
+                database.child("users").child(friend.uid).child("friends").child(user.uid)
+                    .setValue(userInfo)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.d("error", "Error while reading data")
+            }
+        })
     }
 
     //    fetches request list from realtime database

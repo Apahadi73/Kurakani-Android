@@ -73,6 +73,6 @@ class MessageListDiffCallback : DiffUtil.ItemCallback<UserMessageInfo>() {
 }
 
 //click listner
-class UserChatClickListner(val clickListener: (userName: String) -> Unit) {
-    fun onClick(userInfo: UserMessageInfo) = clickListener(userInfo.userName)
+class UserChatClickListner(val clickListener: (user:UserMessageInfo) -> Unit) {
+    fun onClick(userInfo: UserMessageInfo) = clickListener(userInfo)
 }

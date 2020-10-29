@@ -39,8 +39,8 @@ class HomeFragment : Fragment() {
     ): View? {
         auth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val adapter = MessageListAdapter(UserChatClickListner { userName ->
-            makeText(context, "$userName clicked", Toast.LENGTH_LONG)
+        val adapter = MessageListAdapter(UserChatClickListner { user ->
+            makeText(context, "${user.userName} clicked", Toast.LENGTH_LONG)
         })
         binding.recyclerView.adapter = adapter
         homeViewModel.messageList.observe(viewLifecycleOwner, Observer {
