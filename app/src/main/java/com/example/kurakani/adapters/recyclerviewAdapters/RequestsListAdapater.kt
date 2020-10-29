@@ -76,6 +76,6 @@ class RequestListDiffCallback : DiffUtil.ItemCallback<Request>() {
 }
 
 //click listner
-class AcceptButtonListner(val clickListener: (userName: String) -> Unit) {
-    fun onClick(request: Request) = clickListener(request.userName)
+class AcceptButtonListner(val clickListener: (userId: String) -> Unit) {
+    fun onClick(request: Request) = clickListener(request.userId)
 }

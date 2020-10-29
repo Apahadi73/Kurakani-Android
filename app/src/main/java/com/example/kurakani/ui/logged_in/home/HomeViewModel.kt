@@ -14,12 +14,11 @@ class HomeViewModel : ViewModel() {
     private lateinit var userName: String
     private lateinit var user: FirebaseUser
     private lateinit var database: DatabaseReference
-    private var isDataLoaded = false
 
 
     private val _messageList = MutableLiveData<List<UserMessageInfo>>().apply {
-        Log.d("response", "reached")
-        value = generateDummyList(5)
+//        load empty array list to instantiate the message list live data
+        value = ArrayList<UserMessageInfo>()
     }
     val messageList = _messageList
 
@@ -28,17 +27,7 @@ class HomeViewModel : ViewModel() {
     private fun generateDummyList(size: Int): List<UserMessageInfo> {
         val messageList = ArrayList<UserMessageInfo>()
         for (i in 0 until size) {
-            messageList += if (isDataLoaded) {
-                val item = UserMessageInfo(imageSrc, userName, message)
-                item
-            } else {
-                val item = UserMessageInfo(
-                    "https://storage.needpix.com/rsynced_images/android-icon-2332747_1280.png",
-                    "User: ${i + 1}",
-                    "message: hi user ${i + 1}"
-                )
-                item
-            }
+            messageList +=  UserMessageInfo(imageSrc, userName, message)
          }
         return messageList
     }
@@ -55,7 +44,6 @@ class HomeViewModel : ViewModel() {
                 imageSrc = responseData.child("profile_image").value.toString()
 //                todo: make this dynamic
                 message = "Hi there"
-                isDataLoaded = true
                 _messageList.value = generateDummyList(5)
             }
 

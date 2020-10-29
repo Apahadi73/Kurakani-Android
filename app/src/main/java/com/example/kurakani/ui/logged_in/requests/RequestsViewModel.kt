@@ -16,36 +16,19 @@ class RequestsViewModel : ViewModel() {
     private lateinit var userNameList: ArrayList<String>
 
     private var _requestList = MutableLiveData<List<Request>>().apply {
-        value = generateDummyList(2)
-        Log.d("requestList", value.toString())
+        value = ArrayList<Request>()
 
     }
     val requestList = _requestList
 
-//    load this data while data is being fetched
-    private fun generateDummyList(size: Int): ArrayList<Request> {
-        val dummyUserNameList = arrayOf("John", "John", "John", "John", "John", "John")
-        Log.d("request_section", "generating request list")
-        val requestList = ArrayList<Request>()
-        for (i in 0 until size) {
-            requestList += Request(
-                "https://storage.needpix.com/rsynced_images/android-icon-2332747_1280.png",
-                dummyUserNameList[Random.nextInt(5)],
-                userId = dummyUserNameList[Random.nextInt(5)],
-            )
-        }
-        return requestList
-    }
-
-
     //    fetches request list from realtime database
     fun fetchRequestList(): Unit {
         user = FirebaseAuth.getInstance().currentUser!!
-        Log.d("request_section", user.toString())
         database = FirebaseDatabase.getInstance().reference
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val responseData = dataSnapshot.child("users").child(user.uid).child("user_info").child("requests")
+                val responseData =
+                    dataSnapshot.child("users").child(user.uid).child("user_info").child("requests")
 //                map response data into the user list
                 var userList = responseData.value as ArrayList<*>
 //                clears null values from userList
@@ -54,10 +37,16 @@ class RequestsViewModel : ViewModel() {
                 val requestList = ArrayList<Request>()
                 for (request in userList) {
                     val user = request as HashMap<*, *>
-                    requestList+=Request(user["profile_pic"] as String,user["name"] as String,user["userId"] as String,)
+                    requestList += Request(
+                        user["profile_pic"] as String,
+                        user["name"] as String,
+                        user["userId"] as String,
+                    )
                 }
-                _requestList.value=requestList
+//                loads the data into the request list livedata
+                _requestList.value = requestList
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
                 Log.w("loadPost:onCancelled", databaseError.toException())
@@ -66,3 +55,18 @@ class RequestsViewModel : ViewModel() {
         database.addListenerForSingleValueEvent(valueListner)
     }
 }
+
+
+////    load this data while data is being fetched
+//    private fun generateDummyList(size: Int): ArrayList<Request> {
+//        val dummyUserNameList = arrayOf("John", "John", "John", "John", "John", "John")
+//        val requestList = ArrayList<Request>()
+//        for (i in 0 until size) {
+//            requestList += Request(
+//                "https://storage.needpix.com/rsynced_images/android-icon-2332747_1280.png",
+//                dummyUserNameList[Random.nextInt(5)],
+//                userId = dummyUserNameList[Random.nextInt(5)],
+//            )
+//        }
+//        return requestList
+//    }
