@@ -3,10 +3,14 @@ package com.example.kurakani.ui.logged_in.home
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.kurakani.model.Message
+import com.example.kurakani.model.Request
 import com.example.kurakani.model.UserMessageInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.firestore.auth.User
+
 
 class HomeViewModel : ViewModel() {
     private lateinit var imageSrc: String
@@ -22,16 +26,6 @@ class HomeViewModel : ViewModel() {
     }
     val messageList = _messageList
 
-    //    for the moment - generates dummy data
-    // TODO : fetch data from backend
-    private fun generateDummyList(size: Int): List<UserMessageInfo> {
-        val messageList = ArrayList<UserMessageInfo>()
-        for (i in 0 until size) {
-            messageList +=  UserMessageInfo(imageSrc, userName, message)
-         }
-        return messageList
-    }
-
     //  fetches user name from cloud firestore and updates the profile view
     fun fetchUserData() {
         Log.d("response", "fetched")
@@ -40,11 +34,27 @@ class HomeViewModel : ViewModel() {
         database = FirebaseDatabase.getInstance().reference
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val responseData = dataSnapshot.child("users").child(user.uid)
-                imageSrc = responseData.child("profile_image").value.toString()
-//                todo: make this dynamic
-                message = "Hi there"
-                _messageList.value = generateDummyList(5)
+                val messages = ArrayList<UserMessageInfo>()
+                val chatData = dataSnapshot.child("chats")
+                for (childSnapshot in chatData.children) {
+//                    finds the last chat
+                    val lastMessage = childSnapshot.child("last_message").value as String
+
+//                    find the second participant other than the user
+                    val participants = childSnapshot.child("participants").value as List<String>
+                    var friendUID = ""
+                    for (uid in participants){
+                        if (uid == user.uid) continue
+                        friendUID=uid
+                    }
+
+//                    finds the friend profile picture
+                    val friendInfo = dataSnapshot.child("users").child(friendUID)
+                    val friendName = friendInfo.child("user_info").child("user_name").value as String
+                    val friendImgSrc = friendInfo.child("profile_pic").value as String
+                    messages+=UserMessageInfo(friendImgSrc,friendName,lastMessage)
+                }
+                _messageList.value = messages
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -52,6 +62,6 @@ class HomeViewModel : ViewModel() {
                 Log.w("loadPost:onCancelled", databaseError.toException())
             }
         }
-        database.addListenerForSingleValueEvent(valueListner)
+        database.addValueEventListener(valueListner)
     }
 }

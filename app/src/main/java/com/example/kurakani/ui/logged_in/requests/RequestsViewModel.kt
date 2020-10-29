@@ -28,11 +28,13 @@ class RequestsViewModel : ViewModel() {
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val responseData =
-                    dataSnapshot.child("users").child(user.uid).child("user_info").child("requests")
+                    dataSnapshot.child("users").child(user.uid).child("requests")
 //                map response data into the user list
                 var userList = responseData.value as ArrayList<*>
 //                clears null values from userList
                 userList = userList.filterNotNull() as ArrayList<Any>
+
+//Todo: null bug in request list
 
                 val requestList = ArrayList<Request>()
                 for (request in userList) {
@@ -52,7 +54,7 @@ class RequestsViewModel : ViewModel() {
                 Log.w("loadPost:onCancelled", databaseError.toException())
             }
         }
-        database.addListenerForSingleValueEvent(valueListner)
+        database.addValueEventListener(valueListner)
     }
 }
 
