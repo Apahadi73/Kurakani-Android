@@ -3,17 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-<variable
-    name="Request"
-    type="com.example.kurakani.model.Request" />
+
+        <variable
+            name="request"
+            type="com.example.kurakani.model.Request" />
+
+        <variable
+            name="acceptBtnListner"
+            type="com.example.kurakani.adapters.recyclerviewAdapters.AcceptButtonListner" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8sp"
         android:layout_marginHorizontal="8sp"
-        android:layout_marginVertical="2sp">
+        android:layout_marginVertical="2sp"
+        app:cardCornerRadius="8sp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -41,10 +46,10 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxWidth="150sp"
                 android:layout_gravity="center"
                 android:layout_marginStart="8sp"
-                android:text="Username"
+                android:maxWidth="150sp"
+                android:text="@{request.userName}"
                 android:textColor="@color/title"
                 android:textFontWeight="700"
                 android:textSize="18sp" />
@@ -57,8 +62,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/request_accept_btn"
                 android:layout_width="wrap_content"
-                android:layout_gravity="right"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:background="@drawable/btn_custom"
                 android:padding="8sp"
                 android:text="ACCEPT"

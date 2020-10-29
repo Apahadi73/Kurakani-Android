@@ -4,8 +4,11 @@
 
     <data>
         <variable
-            name="Request"
+            name="userInfo"
             type="com.example.kurakani.model.UserMessageInfo" />
+        <variable
+            name="UserChatListner"
+            type="com.example.kurakani.adapters.recyclerviewAdapters.UserChatClickListner" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -13,7 +16,8 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="8sp"
         android:layout_marginHorizontal="8sp"
-        android:layout_marginVertical="2sp">
+        android:layout_marginVertical="2sp"
+        android:onClick="@{() -> UserChatListner.onClick(userInfo)}">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/image_card"
-                android:text="Username"
+                android:text="@{userInfo.userName}"
                 android:textColor="@color/title"
                 android:textFontWeight="700"
                 android:textSize="18sp" />
@@ -53,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/username"
                 android:layout_toEndOf="@+id/image_card"
-                android:text="message"
+                android:text="@{userInfo.message}"
                 android:textFontWeight="700"
                 android:textSize="16sp" />
         </RelativeLayout>

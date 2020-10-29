@@ -1,6 +1,5 @@
 package com.example.kurakani.adapters.recyclerviewAdapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,7 @@ import com.example.kurakani.databinding.UserItemCardBinding
 import com.example.kurakani.model.UserMessageInfo
 
 
-class MessageListAdapter(private val messageInfoList: MutableLiveData<List<UserMessageInfo>>) :
+class MessageListAdapter(private val clickListener:UserChatClickListner, private val messageInfoList: MutableLiveData<List<UserMessageInfo>>) :
     ListAdapter<UserMessageInfo, MessageListAdapter.MessageViewHolder>(MessageListDiffCallback()) {
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
@@ -29,9 +28,8 @@ class MessageListAdapter(private val messageInfoList: MutableLiveData<List<UserM
      * position.
      */
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        val currentItem = getItem(position)
-        Log.d("reached ", "reached onBindViewHolder")
-        holder.bind(currentItem, holder)
+        holder.bind(getItem(position)!!,clickListener)
+
     }
 
 
@@ -41,12 +39,14 @@ class MessageListAdapter(private val messageInfoList: MutableLiveData<List<UserM
 
         fun bind(
             currentItem: UserMessageInfo?,
-            holder: MessageViewHolder
+            holder: UserChatClickListner
         ) { //        downloads and populate imageview with user image from firebase image storage
-            if (currentItem != null) Picasso.get().load(currentItem.imageSrc)
-                .into(holder.binding.userCardImage)
-            if (currentItem != null) holder.binding.username.text = currentItem.userName
-            if (currentItem != null) holder.binding.message.text = currentItem.message
+            if (currentItem != null) {
+                Picasso.get().load(currentItem.imageSrc)
+                    .into(binding.userCardImage)
+                binding.userInfo = UserMessageInfo(currentItem.imageSrc,currentItem.userName,currentItem.message)
+            }
+
         }
 
         companion object {
@@ -70,5 +70,9 @@ class MessageListDiffCallback : DiffUtil.ItemCallback<UserMessageInfo>() {
     ): Boolean {
         return oldItem == newItem
     }
+}
 
+//click listner
+class UserChatClickListner(val clickListener: (userName: String) -> Unit) {
+    fun onClick(userInfo: UserMessageInfo) = clickListener(userInfo.userName)
 }
