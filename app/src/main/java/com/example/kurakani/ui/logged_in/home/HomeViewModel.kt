@@ -1,6 +1,7 @@
 package com.example.kurakani.ui.logged_in.home
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kurakani.model.Message
@@ -34,25 +35,31 @@ class HomeViewModel : ViewModel() {
         database = FirebaseDatabase.getInstance().reference
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                loadData(dataSnapshot)
+            }
+
+            //            loads messageInfo into the messagelist live data
+            private fun loadData(dataSnapshot: DataSnapshot) {
                 val messages = ArrayList<UserMessageInfo>()
                 val chatData = dataSnapshot.child("chats")
                 for (childSnapshot in chatData.children) {
-//                    finds the last chat
+                    //                    finds the last chat
                     val lastMessage = childSnapshot.child("last_message").value as String
 
-//                    find the second participant other than the user
+                    //                    find the second participant other than the user
                     val participants = childSnapshot.child("participants").value as List<String>
                     var friendUID = ""
-                    for (uid in participants){
+                    for (uid in participants) {
                         if (uid == user.uid) continue
-                        friendUID=uid
+                        friendUID = uid
                     }
 
-//                    finds the friend profile picture
+                    //                    finds the friend profile picture
                     val friendInfo = dataSnapshot.child("users").child(friendUID)
-                    val friendName = friendInfo.child("user_info").child("user_name").value as String
+                    val friendName =
+                        friendInfo.child("user_info").child("user_name").value as String
                     val friendImgSrc = friendInfo.child("profile_pic").value as String
-                    messages+=UserMessageInfo(friendImgSrc,friendName,lastMessage)
+                    messages += UserMessageInfo(friendImgSrc, friendName, lastMessage)
                 }
                 _messageList.value = messages
             }

@@ -13,19 +13,11 @@ import com.squareup.picasso.Picasso
 
 class RequestListListAdapter(private val clickListener: AcceptButtonListner) :
     ListAdapter<Request, RequestListListAdapter.RequestViewHolder>(RequestListDiffCallback()) {
-    /**
-     * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
-     * an item.
-     */
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
         return RequestViewHolder.from(parent)
     }
 
-    /**
-     * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the [ViewHolder.itemView] to reflect the item at the given
-     * position.
-     */
     override fun onBindViewHolder(holder: RequestViewHolder, position: Int) {
         holder.bind(getItem(position)!!,clickListener)
     }
@@ -50,10 +42,6 @@ class RequestListListAdapter(private val clickListener: AcceptButtonListner) :
             ): RequestViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = RequestItemCardBinding.inflate(layoutInflater, parent, false)
-//                val itemView = LayoutInflater.from(parent.context).inflate(
-//                    R.layout.request_item_card,
-//                    parent, false
-//                )
                 return RequestViewHolder(binding)
             }
         }
@@ -76,6 +64,6 @@ class RequestListDiffCallback : DiffUtil.ItemCallback<Request>() {
 }
 
 //click listner
-class AcceptButtonListner(val clickListener: (userId: String) -> Unit) {
-    fun onClick(request: Request) = clickListener(request.userId)
+class AcceptButtonListner(val clickListener: (request: Request) -> Unit) {
+    fun onClick(request: Request) = clickListener(request)
 }

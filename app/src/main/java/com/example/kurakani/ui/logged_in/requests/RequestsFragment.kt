@@ -16,6 +16,7 @@ import com.example.kurakani.R
 import com.example.kurakani.adapters.recyclerviewAdapters.AcceptButtonListner
 import com.example.kurakani.adapters.recyclerviewAdapters.RequestListListAdapter
 import com.example.kurakani.databinding.FragmentRequestsBinding
+import java.util.*
 
 class RequestsFragment : Fragment() {
 
@@ -29,9 +30,9 @@ class RequestsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_requests, container, false)
         requestsViewModel = ViewModelProvider(this).get(RequestsViewModel::class.java)
         requestsViewModel.fetchRequestList()
-        val adapter = RequestListListAdapter(AcceptButtonListner { userName ->
-            Log.d("reached ","button clicked")
-            makeText(context, "Friend Request from $userName accepted", Toast.LENGTH_LONG).show()
+        val adapter = RequestListListAdapter(AcceptButtonListner { request ->
+            requestsViewModel.acceptRequest(request)
+            makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} accepted", Toast.LENGTH_LONG).show()
         })
         binding.requestRecyclerView.adapter = adapter
         if (requestsViewModel.requestList.value != null) {
