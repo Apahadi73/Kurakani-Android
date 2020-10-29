@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AuthorizationActivity"
+            android:name=".UserActivity"
             android:label="Kurakani">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
 
 
         <activity
-            android:name=".UserActivity"
+            android:name=".AuthorizationActivity"
             android:label="@string/app_name"/>
     </application>
 

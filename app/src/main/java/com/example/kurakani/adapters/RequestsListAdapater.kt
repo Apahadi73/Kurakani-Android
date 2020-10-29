@@ -17,17 +17,14 @@ import kotlinx.android.synthetic.main.user_item_card.view.user_card_image
 import kotlinx.android.synthetic.main.user_item_card.view.username
 
 
-class RequestListListAdapter(private val RequestList: MutableLiveData<List<Request>>) : RecyclerView.Adapter<RequestListListAdapter.RequestViewHolder>() {
+class RequestListListAdapter(private val RequestList: MutableLiveData<List<Request>>) :
+    RecyclerView.Adapter<RequestListListAdapter.RequestViewHolder>() {
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
      * an item.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.request_item_card,
-            parent, false
-        )
-        return RequestViewHolder(itemView)
+        return RequestViewHolder.from(this,parent)
     }
 
     /**
@@ -37,33 +34,48 @@ class RequestListListAdapter(private val RequestList: MutableLiveData<List<Reque
      */
     override fun onBindViewHolder(holder: RequestViewHolder, position: Int) {
         val currentItem = RequestList.value?.get(position)
-        Log.d("reached ","reached onBindViewHolder of requestList")
-//        downloads and populate imageview with user image from firebase image storage
-        if (currentItem != null) {
-            Picasso.get().load(currentItem.imageSrc).into(holder.imageView)
-        }
-        if (currentItem != null) {
-            holder.userName!!.text = currentItem.userName
-        }
+        holder.bind(currentItem, holder)
     }
 
-    override fun getItemCount(): Int = RequestList.value?.size ?:0
 
-    inner class RequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener  {
+    override fun getItemCount(): Int = RequestList.value?.size ?: 0
+
+    class RequestViewHolder private  constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val imageView: ImageView = itemView.user_card_image
         val userName: AppCompatTextView? = itemView.username
-        val acceptBtn:AppCompatButton? = itemView.request_accept_btn
+        val acceptBtn: AppCompatButton? = itemView.request_accept_btn
 
-        init{
-            itemView.setOnClickListener(this)
+        fun bind(
+            currentItem: Request?,
+            holder: RequestViewHolder
+        ) {
+            //        downloads and populate imageview with user image from firebase image storage
+            if (currentItem != null) {
+                Picasso.get().load(currentItem.imageSrc).into(holder.imageView)
+            }
+            if (currentItem != null) {
+                holder.userName!!.text = currentItem.userName
+            }
         }
+
+        companion object {
+            fun from(requestListListAdapter: RequestListListAdapter, parent: ViewGroup): RequestViewHolder {
+                val itemView = LayoutInflater.from(parent.context).inflate(
+                    R.layout.request_item_card,
+                    parent, false
+                )
+                return RequestViewHolder(itemView)
+            }
+        }
+
         override fun onClick(v: View?) {
 
         }
 
     }
 
-    interface onItemClickListner{
 
-    }
+
+
 }

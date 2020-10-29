@@ -21,11 +21,7 @@ class MessageListAdapter(private val MessageList: MutableLiveData<List<UserMessa
      * an item.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.user_item_card,
-            parent, false
-        )
-        return MessageViewHolder(itemView)
+        return MessageViewHolder.from(parent)
     }
 
     /**
@@ -36,23 +32,45 @@ class MessageListAdapter(private val MessageList: MutableLiveData<List<UserMessa
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val currentItem = MessageList.value?.get(position)
         Log.d("reached ","reached onBindViewHolder")
-//        downloads and populate imageview with user image from firebase image storage
-        if (currentItem != null) {
-            Picasso.get().load(currentItem.imageSrc).into(holder.imageView)
-        }
-        if (currentItem != null) {
-            holder.userName!!.text = currentItem.userName
-        }
-        if (currentItem != null) {
-            holder.message!!.text = currentItem.message
-        }
+        holder.bind(currentItem, holder)
     }
+
+
 
     override fun getItemCount(): Int = MessageList.value?.size ?:0
 
+//    view holder class
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.user_card_image
         val userName: AppCompatTextView? = itemView.username
         val message: AppCompatTextView? = itemView.message
+
+        fun bind(
+            currentItem: UserMessage?,
+            holder: MessageViewHolder
+        ) {
+            //        downloads and populate imageview with user image from firebase image storage
+            if (currentItem != null) {
+                Picasso.get().load(currentItem.imageSrc).into(holder.imageView)
+            }
+            if (currentItem != null) {
+                holder.userName!!.text = currentItem.userName
+            }
+            if (currentItem != null) {
+                holder.message!!.text = currentItem.message
+            }
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): MessageViewHolder {
+                val itemView = LayoutInflater.from(parent.context).inflate(
+                    R.layout.user_item_card,
+                    parent, false
+                )
+                return MessageViewHolder(itemView)
+            }
+        }
     }
+
+
 }
