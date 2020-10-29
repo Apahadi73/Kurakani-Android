@@ -3,7 +3,7 @@ package com.example.kurakani.ui.logged_in.home
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.kurakani.model.UserMessage
+import com.example.kurakani.model.UserMessageInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -17,7 +17,7 @@ class HomeViewModel : ViewModel() {
     private var isDataLoaded = false
 
 
-    private val _messageList = MutableLiveData<List<UserMessage>>().apply {
+    private val _messageList = MutableLiveData<List<UserMessageInfo>>().apply {
         Log.d("response", "reached")
         value = generateDummyList(5)
     }
@@ -25,14 +25,14 @@ class HomeViewModel : ViewModel() {
 
     //    for the moment - generates dummy data
     // TODO : fetch data from backend
-    private fun generateDummyList(size: Int): List<UserMessage> {
-        val messageList = ArrayList<UserMessage>()
+    private fun generateDummyList(size: Int): List<UserMessageInfo> {
+        val messageList = ArrayList<UserMessageInfo>()
         for (i in 0 until size) {
             messageList += if (isDataLoaded) {
-                val item = UserMessage(imageSrc, userName, message)
+                val item = UserMessageInfo(imageSrc, userName, message)
                 item
             } else {
-                val item = UserMessage(
+                val item = UserMessageInfo(
                     "https://storage.needpix.com/rsynced_images/android-icon-2332747_1280.png",
                     "User: ${i + 1}",
                     "message: hi user ${i + 1}"

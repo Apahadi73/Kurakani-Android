@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kurakani.R
-import com.example.kurakani.adapters.MessageListAdapter
+import com.example.kurakani.adapters.recyclerviewAdapters.MessageListAdapter
 import com.example.kurakani.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,8 +36,12 @@ class HomeFragment : Fragment() {
     ): View? {
         auth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        val adapter = MessageListAdapter(homeViewModel.messageList)
+        binding.recyclerView.adapter = adapter
         homeViewModel.messageList.observe(viewLifecycleOwner, Observer {
-            binding.recyclerView.adapter=MessageListAdapter(homeViewModel.messageList)
+            it.let {
+                adapter.submitList(it)
+            }
         })
         binding.recyclerView.setHasFixedSize(true)
         val callback: OnBackPressedCallback =

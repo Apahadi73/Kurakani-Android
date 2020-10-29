@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kurakani.R
-import com.example.kurakani.adapters.RequestListListAdapter
+import com.example.kurakani.adapters.recyclerviewAdapters.RequestListListAdapter
 import com.example.kurakani.databinding.FragmentRequestsBinding
 
 class RequestsFragment : Fragment() {
@@ -26,10 +26,13 @@ class RequestsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_requests, container, false)
         requestsViewModel = ViewModelProvider(this).get(RequestsViewModel::class.java)
         requestsViewModel.fetchRequestList()
+        val adapter = RequestListListAdapter(requestsViewModel.requestList)
+        binding.requestRecyclerView.adapter = adapter
         if (requestsViewModel.requestList.value != null) {
             requestsViewModel.requestList.observe(viewLifecycleOwner, Observer {
-                binding.requestRecyclerView.adapter =
-                    RequestListListAdapter(requestsViewModel.requestList)
+                it.let {
+                    adapter.submitList(it)
+                }
             })
         }
 

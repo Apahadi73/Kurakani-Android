@@ -1,63 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8sp"
-    android:layout_marginHorizontal="8sp"
-    android:layout_marginVertical="2sp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <data>
+<variable
+    name="Request"
+    type="com.example.kurakani.model.Request" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="8sp">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8sp"
+        android:layout_marginHorizontal="8sp"
+        android:layout_marginVertical="2sp">
 
-        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-            android:id="@+id/image_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8sp"
-            android:foregroundGravity="center"
-            app:cardCornerRadius="40sp">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8sp">
 
-            <ImageView
-                android:id="@+id/user_card_image"
-                android:layout_width="50sp"
-                android:layout_height="50sp"
-                android:src="@drawable/avatar_icon" />
-        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                android:id="@+id/image_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8sp"
+                android:foregroundGravity="center"
+                app:cardCornerRadius="40sp">
 
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="150sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="8sp"
-            android:text="Username"
-            android:textColor="@color/title"
-            android:textFontWeight="700"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/request_accept_btn"
-            android:layout_width="wrap_content"
-            android:layout_gravity="right"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_custom"
-            android:padding="8sp"
-            android:text="ACCEPT"
-            android:textColor="@android:color/white" />
+                <ImageView
+                    android:id="@+id/user_card_image"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:src="@drawable/avatar_icon" />
+            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="150sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8sp"
+                android:text="Username"
+                android:textColor="@color/title"
+                android:textFontWeight="700"
+                android:textSize="18sp" />
 
-</androidx.cardview.widget.CardView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/request_accept_btn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_custom"
+                android:padding="8sp"
+                android:text="ACCEPT"
+                android:textColor="@android:color/white" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+</layout>
