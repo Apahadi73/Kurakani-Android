@@ -27,7 +27,7 @@ class MessageListAdapter(private val clickListener: UserChatClickListner) :
      * position.
      */
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.bind(getItem(position)!!,clickListener)
+        holder.bind(getItem(position)!!, clickListener)
 
     }
 
@@ -43,9 +43,10 @@ class MessageListAdapter(private val clickListener: UserChatClickListner) :
             if (currentItem != null) {
                 Picasso.get().load(currentItem.imageSrc)
                     .into(binding.userCardImage)
-                binding.userInfo = UserMessageInfo(currentItem.imageSrc,currentItem.userName,currentItem.message)
+                binding.userInfo =
+                    UserMessageInfo(currentItem.imageSrc, currentItem.userName, currentItem.message)
+                binding.clickListner = clickListener
             }
-            binding.userChatListner = clickListener
 
         }
 
@@ -73,6 +74,6 @@ class MessageListDiffCallback : DiffUtil.ItemCallback<UserMessageInfo>() {
 }
 
 //click listner
-class UserChatClickListner(val clickListener: (user:UserMessageInfo) -> Unit) {
+class UserChatClickListner(val clickListener: (user: UserMessageInfo) -> Unit) {
     fun onClick(userInfo: UserMessageInfo) = clickListener(userInfo)
 }

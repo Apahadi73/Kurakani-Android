@@ -1,11 +1,13 @@
 package com.example.kurakani.ui.logged_in.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.activity.OnBackPressedCallback
@@ -15,10 +17,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kurakani.R
+import com.example.kurakani.adapters.recyclerviewAdapters.AcceptButtonListner
 import com.example.kurakani.adapters.recyclerviewAdapters.MessageListAdapter
+import com.example.kurakani.adapters.recyclerviewAdapters.RequestListListAdapter
 import com.example.kurakani.adapters.recyclerviewAdapters.UserChatClickListner
 import com.example.kurakani.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -33,6 +39,7 @@ class HomeFragment : Fragment() {
         homeViewModel.fetchUserData()
     }
 
+    @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +47,9 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         val adapter = MessageListAdapter(UserChatClickListner { user ->
-            makeText(context, "${user.userName} clicked", Toast.LENGTH_LONG)
+            Log.d("reached","${user.userName} chat clicked")
+//            todo: figure out why toast is not displaying
+            makeText(context,"${user.userName} chat clicked",Toast.LENGTH_LONG)
         })
         binding.recyclerView.adapter = adapter
         homeViewModel.messageList.observe(viewLifecycleOwner, Observer {
