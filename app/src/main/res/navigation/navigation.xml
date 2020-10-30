@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_loginFragment3"
             app:destination="@id/loginFragment3" />
+        <action
+            android:id="@+id/action_nav_home_to_chatPage"
+            app:destination="@id/chatPage" />
     </fragment>
 
     <fragment
@@ -47,4 +50,15 @@
         android:id="@+id/loginFragment3"
         android:name="com.example.kurakani.ui.authorization.login.LoginFragment"
         android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/chatPage"
+        android:name="com.example.kurakani.ui.logged_in.chat.ChatPage"
+        android:label="ChatPage" >
+        <action
+            android:id="@+id/action_chatPage_to_nav_home"
+            app:destination="@id/nav_home" />
+        <argument
+            android:name="chatId"
+            app:argType="string" />
+    </fragment>
 </navigation>

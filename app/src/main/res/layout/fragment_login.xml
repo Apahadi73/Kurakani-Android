@@ -30,7 +30,7 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:drawableStart="@drawable/ic_email"
-                android:background="@drawable/edit_textfield_custom"
+                android:background="@drawable/edit_txtfield_custom"
                 />
             <EditText
                 android:id="@+id/userPassword"
@@ -43,7 +43,7 @@
                 android:drawableStart="@drawable/ic_password"
                 android:inputType="textPassword"
                 android:imeOptions="actionDone"
-                android:background="@drawable/edit_textfield_custom"
+                android:background="@drawable/edit_txtfield_custom"
                 />
 
             <Button

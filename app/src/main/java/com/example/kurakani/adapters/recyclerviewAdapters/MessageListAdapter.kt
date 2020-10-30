@@ -44,7 +44,7 @@ class MessageListAdapter(private val clickListener: UserChatClickListner) :
                 Picasso.get().load(currentItem.imageSrc)
                     .into(binding.userCardImage)
                 binding.userInfo =
-                    UserMessageInfo(currentItem.imageSrc, currentItem.userName, currentItem.message)
+                    UserMessageInfo(currentItem.imageSrc, currentItem.userName, currentItem.message,currentItem.chatId)
                 binding.clickListner = clickListener
             }
 

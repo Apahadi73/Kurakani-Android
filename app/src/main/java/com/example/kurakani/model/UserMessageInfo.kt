@@ -1,3 +1,3 @@
 package com.example.kurakani.model
 
-data class UserMessageInfo(val imageSrc:String, val userName:String, val message:String)
+data class UserMessageInfo(val imageSrc:String, val userName:String, val message:String,val chatId:String)
