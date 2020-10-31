@@ -14,8 +14,6 @@ import com.google.firebase.firestore.auth.User
 
 
 class HomeViewModel : ViewModel() {
-    private lateinit var imageSrc: String
-    private lateinit var message: String
     private lateinit var userName: String
     private lateinit var user: FirebaseUser
     private lateinit var database: DatabaseReference

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.kurakani.R
 import com.example.kurakani.databinding.ChatPageFragmentBinding
 import com.example.kurakani.databinding.RequestItemCardBinding
+import com.example.kurakani.ui.logged_in.home.HomeViewModel
 
 class ChatPage : Fragment() {
 
@@ -22,8 +23,13 @@ class ChatPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.chat_page_fragment, container, false)
+        chatPageViewModel = ViewModelProvider(this).get(ChatPageViewModel::class.java)
 //      receive chatId from argument Bundle
         val chatId = arguments?.let { ChatPageArgs.fromBundle(it).chatId }
+        if (chatId != null) {
+            chatPageViewModel.setChatId(chatId)
+            chatPageViewModel.fetchMessages()
+        }
         return binding.root
     }
 }
