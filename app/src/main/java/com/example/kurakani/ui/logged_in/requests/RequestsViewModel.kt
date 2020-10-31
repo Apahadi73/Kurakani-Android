@@ -72,18 +72,19 @@ class RequestsViewModel : ViewModel() {
                 val responseData =
                     dataSnapshot.child("users").child(user.uid).child("requests")
 
+
                 val requestList = ArrayList<Request>()
 //                load request into the requestList arraylist
                 for (user in responseData.children) {
                     val request = user.value as HashMap<*, *>
                     requestList += Request(
                         request["profile_pic"] as String,
-                        request["name"] as String,
+                        request["user_name"] as String,
                         request["userId"] as String,
                     )
                 }
                 // loads the data into the request list livedata
-                _requestList.value = requestList
+               _requestList.value = requestList
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

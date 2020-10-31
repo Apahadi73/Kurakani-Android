@@ -26,7 +26,7 @@
             android:orientation="horizontal"
             android:padding="8sp">
 
-            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/image_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     android:contentDescription="@{request.userName}" />
-            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+            </androidx.cardview.widget.CardView>
 
 
             <androidx.appcompat.widget.AppCompatTextView

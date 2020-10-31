@@ -61,6 +61,7 @@ class HomeViewModel : ViewModel() {
                         val friendName =
                             friendInfo.child("user_info").child("user_name").value as String
                         val friendImgSrc = friendInfo.child("profile_pic").value as String
+                        Log.d("name",friendName)
                         val chatId = friendInfo.child("friends").child(user.uid).child("chatId").value as String
                         messages += UserMessageInfo(friendImgSrc, friendName, lastMessage,chatId)
                     }
