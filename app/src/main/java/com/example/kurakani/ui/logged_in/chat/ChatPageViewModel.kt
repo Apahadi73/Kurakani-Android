@@ -19,6 +19,8 @@ class ChatPageViewModel : ViewModel() {
         value = ArrayList<Message>()
     }
 
+    val messages = _messageList
+
     private val _chatId = MutableLiveData<String>().apply {
         value = ""
     }
