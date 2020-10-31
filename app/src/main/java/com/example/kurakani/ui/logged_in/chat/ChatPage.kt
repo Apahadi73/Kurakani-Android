@@ -1,24 +1,20 @@
 package com.example.kurakani.ui.logged_in.chat
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent.*
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import com.example.kurakani.R
 import com.example.kurakani.adapters.recyclerviewAdapters.ChatPageListAdapter
-import com.example.kurakani.adapters.recyclerviewAdapters.MessageListAdapter
-import com.example.kurakani.adapters.recyclerviewAdapters.UserChatClickListner
 import com.example.kurakani.databinding.ChatPageFragmentBinding
-import com.example.kurakani.databinding.RequestItemCardBinding
-import com.example.kurakani.ui.logged_in.home.HomeFragmentDirections
-import com.example.kurakani.ui.logged_in.home.HomeViewModel
+
 
 class ChatPage : Fragment() {
 
@@ -36,6 +32,7 @@ class ChatPage : Fragment() {
         if (chatId != null) {
             chatPageViewModel.setChatId(chatId)
             chatPageViewModel.fetchMessages()
+            chatPageViewModel.loadUserData()
         }
         val adapter = ChatPageListAdapter()
         binding.recyclerView.adapter = adapter
@@ -43,6 +40,18 @@ class ChatPage : Fragment() {
             it.let {
                 adapter.submitList(it)
             }
+        })
+//        adds listner to the send button and calls viewmodel accordingly
+        binding.userMessage.setOnTouchListener(OnTouchListener { v, event ->
+            val DRAWABLE_RIGHT: Int = 2
+            if (event.action == ACTION_UP && event.rawX >= binding.userMessage.right - binding.userMessage.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
+            ) {
+                val userEnteredMessage = binding.userMessage.text.toString()
+                chatPageViewModel.sendMessage(userEnteredMessage.trim())
+                binding.userMessage.text=null
+                return@OnTouchListener true
+            }
+            false
         })
         binding.recyclerView.setHasFixedSize(true)
         return binding.root

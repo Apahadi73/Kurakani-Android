@@ -2,14 +2,11 @@ package com.example.kurakani.adapters.recyclerviewAdapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kurakani.databinding.MessageReceivedItemBinding
-import com.example.kurakani.databinding.RequestItemCardBinding
 import com.example.kurakani.model.Message
-import com.example.kurakani.model.Request
 import com.squareup.picasso.Picasso
 
 
@@ -34,9 +31,9 @@ class ChatPageListAdapter() :
             currentItem: Message?
         ) { //        downloads and populate imageview with user image from firebase image storage
             if (currentItem != null) {
-                Picasso.get().load(currentItem.profiePic).into(binding.userCardImage)
+                Picasso.get().load(currentItem.profile_pic).into(binding.userCardImage)
                 binding.message =
-                    Message(currentItem.message, currentItem.senderName, currentItem.profiePic,currentItem.time)
+                    Message(currentItem.message, currentItem.sender_name, currentItem.profile_pic,currentItem.time)
             }
         }
 
