@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8sp"
+            android:layout_gravity="center"
             android:foregroundGravity="center"
             app:cardCornerRadius="15sp">
 
@@ -38,16 +39,15 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/message_item"
-            android:paddingHorizontal="4sp"
+            android:padding="8sp"
             android:background="@drawable/message_received"
             android:layout_marginTop="2sp"
             android:layout_marginEnd="64sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textColor="@color/black"
             android:text="@{message.message}"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textFontWeight="700"
             android:textSize="16sp" />
 
